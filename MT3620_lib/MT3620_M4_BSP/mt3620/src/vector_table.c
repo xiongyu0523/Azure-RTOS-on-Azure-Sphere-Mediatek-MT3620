@@ -54,6 +54,7 @@ void __attribute__((weak, alias("DefaultExceptionHandler"))) SVC_Handler(void);
 void __attribute__((weak, alias("DefaultExceptionHandler"))) Debug_Monitor_Handler(void);
 void __attribute__((weak, alias("DefaultExceptionHandler"))) PendSV_Handler(void);
 void __attribute__((weak, alias("DefaultExceptionHandler"))) SystmTick_Handler(void);
+void __attribute__((weak, alias("DefaultExceptionHandler"))) MT3620_HandleMailboxIrq11(void);
 
 uintptr_t __isr_vector[116] __attribute__((section(".vector_table"))) __attribute__((used)) = {
 	[0] = (uintptr_t)&StackTop,				/* Top of Stack */
@@ -68,6 +69,8 @@ uintptr_t __isr_vector[116] __attribute__((section(".vector_table"))) __attribut
 	[14] = (uintptr_t)PendSV_Handler,		/* PendSV Handler */
 	[15] = (uintptr_t)SystmTick_Handler,	/* SysTick Handler */
 
-	[(16)... (115)] = (uintptr_t)DefaultExceptionHandler
+	[(16)... (26)] = (uintptr_t)DefaultExceptionHandler,
+	[27] = (uintptr_t)MT3620_HandleMailboxIrq11,
+	[(28)... (115)] = (uintptr_t)DefaultExceptionHandler
 };
 
